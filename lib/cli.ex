@@ -14,7 +14,7 @@ defmodule Clone.CLI do
     home_dir = Path.expand(env(["REPO_HOME", "GITHUB_REPOS_HOME", "ATOM_REPOS_HOME"]))
     owner_dir = Path.join(home_dir, owner)
     repo_dir = Path.join(owner_dir, repo)
-    Logger.debug("repo_dir = #{repo_dir}")
+    Logger.debug(fn -> "repo_dir = #{repo_dir}" end)
 
     :ok = ensure_directory(owner_dir)
     System.cmd("hub", ["clone", location, repo_dir])
