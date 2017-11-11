@@ -2,6 +2,21 @@
 
 An Elixir escript tool to clone Git repositories and store them in the structure to which I've become accustomed.
 
+Most people have a directory where they store their software projects. If you're like me and dabble in a lot of different things, that directory can get pretty busy pretty quickly. Fortunately, the way that GitHub is designed, there's an easy way to collect related projects together by organizing them in directories named after the user or organization they belong to. For example, since I work on [Atom](https://atom.io), [Electron](https://electron.atom.io), and my own personal projects, I might have:
+
+```
+REPO_HOME
++ atom
+  - atom
+  - tree-view
++ electron
+  - electron
++ lee-dohm
+  - tabs-to-spaces
+```
+
+But even though the user or org name is built into the clone URL, neither Git nor the [hub tool](https://hub.github.com) make it easy to maintain such a directory structure. This tool makes it simple.
+
 ## Use
 
 Execute the script like this:
