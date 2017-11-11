@@ -10,6 +10,8 @@ cd "$(dirname "$0")/.."
 
 script/test
 
+export MIX_ENV="prod"
+
 echo "==> Build and install escript…"
 
 mix escript.install --force
