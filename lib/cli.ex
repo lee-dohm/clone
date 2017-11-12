@@ -7,7 +7,8 @@ defmodule Clone.CLI do
   require Logger
 
   def main(args \\ []) do
-    {options, words, _} = OptionParser.parse(args, switches: [debug: :boolean, verbose: :boolean])
+    {options, words, _} = OptionParser.parse(args, switches: [debug: :boolean, verbose: :boolean],
+                                                   aliases: [d: :debug, v: :verbose])
 
     set_verbosity(options)
 
