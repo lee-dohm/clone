@@ -37,7 +37,7 @@ If the tool cannot detect a reasonable value for `REPO_HOME`, it will log an err
 ## Installation
 
 1. Clone [the repository](https://github.com/lee-dohm/clone) to your local system
-1. Run `script/build`
+1. Run `script/install`
 
 ## License
 
