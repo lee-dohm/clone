@@ -23,7 +23,7 @@ defmodule Clone.Mixfile do
   defp deps do
     [
       {:ex_doc, "> 0.0.0", only: :dev, runtime: false},
-      {:espec, "~> 1.4.6", only: :test}
+      {:espec, "~> 1.5", only: :test}
     ]
   end
 
