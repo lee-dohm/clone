@@ -36,7 +36,7 @@ If the tool cannot detect a reasonable value for `REPO_HOME`, it will log an err
 
 ## Installation
 
-The current released version can be installed locally without cloning the repository using:
+If you already have [Elixir][elixir-lang] installed, the current released version can be installed locally without cloning the repository using:
 
 <!--
 The version number in this block should be automatically updated by script/bump.
@@ -61,3 +61,5 @@ This project follows the [GitHub "scripts to rule them all" pattern](http://gith
 ## License
 
 [MIT](LICENSE.md)
+
+[elixir-lang]: https://elixir-lang.org/
