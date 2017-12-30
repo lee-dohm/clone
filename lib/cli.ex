@@ -68,6 +68,10 @@ defmodule Clone.CLI do
 
   defp set_verbosity(options) do
     if Keyword.get(options, :verbose), do: Logger.configure_backend(:console, level: :info)
-    if Keyword.get(options, :debug), do: Logger.configure_backend(:console, level: :debug)
+
+    if Keyword.get(options, :debug) do
+      Logger.configure_backend(:console, level: :debug)
+      System.put_env("HUB_VERBOSE", "1")
+    end
   end
 end
