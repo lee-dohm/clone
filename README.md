@@ -36,8 +36,27 @@ If the tool cannot detect a reasonable value for `REPO_HOME`, it will log an err
 
 ## Installation
 
-1. Clone [the repository](https://github.com/lee-dohm/clone) to your local system
-1. Run `script/install`
+The current released version can be installed locally without cloning the repository using:
+
+<!--
+The version number in this block should be automatically updated by script/bump.
+-->
+```shell
+mix escript.install github lee-dohm/clone v0.2.0
+```
+
+If you want the latest development version, leave off the version tag.
+
+## Development
+
+This project follows the [GitHub "scripts to rule them all" pattern](http://githubengineering.com/scripts-to-rule-them-all/). The contents of the `script` directory are scripts that cover all common tasks:
+
+* `script/bootstrap` &mdash; Installs all prerequisites for a development machine
+* `script/test` &mdash; Runs automated tests
+* `script/console` &mdash; Opens the development console
+* `script/docs` &mdash; Generates developer documentation which can be opened at `doc/index.html`
+* `script/build` &mdash; Builds the escript in the development directory
+* `script/install` &mdash; Builds the escript and installs it to `$MIX_ESCRIPTS`
 
 ## License
 
