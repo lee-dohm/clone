@@ -12,11 +12,14 @@ defmodule Clone.CLI do
 
     set_verbosity(options)
 
-    location = List.first(words)
-    Logger.debug(fn -> "location = #{location}" end)
-    {owner, repo} = Repo.parse_location(location)
+    {owner, repo} =
+      words
+      |> get_location
+      |> Repo.parse_location
+
     Logger.debug(fn -> "owner = #{owner}" end)
     Logger.debug(fn -> "repo = #{repo}" end)
+
     home_dir = Path.expand(env(["REPO_HOME", "GITHUB_REPOS_HOME", "ATOM_REPOS_HOME"]))
     Logger.debug(fn -> "home_dir = #{home_dir}" end)
     owner_dir = Path.join(home_dir, owner)
@@ -26,8 +29,7 @@ defmodule Clone.CLI do
 
     :ok = ensure_directory(owner_dir)
 
-    Logger.info(fn -> "Execute `hub clone #{location} #{repo_dir}`" end)
-    System.cmd("hub", ["clone", location, repo_dir])
+    execute_hub(["clone", location, repo_dir])
   end
 
   defp ensure_directory(dirname) do
@@ -50,6 +52,18 @@ defmodule Clone.CLI do
         true -> value
       end
     end)
+  end
+
+  defp execute_hub(args) do
+    Logger.info(fn -> "Execute `hub #{Enum.join(args)}`" end)
+    System.cmd("hub", args)
+  end
+
+  defp get_location(args) do
+    location = List.first(args)
+    Logger.debug(fn -> "location = #{location}" end)
+
+    location
   end
 
   defp set_verbosity(options) do
