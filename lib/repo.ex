@@ -1,8 +1,12 @@
 defmodule Clone.Repo do
   @moduledoc """
-  Functions for handling repository information.
+  Handles parsing all of the various formats that can be used to represent a GitHub repository.
   """
 
+  @doc """
+  Parses the GitHub repository location into an `{owner, repo}` tuple.
+  """
+  @spec parse_location(String.t) :: {String.t, String.t} | nil
   def parse_location(location) do
     matches = parse_ssh_repo(location) || parse_https_repo(location) || parse_nwo_repo(location)
 

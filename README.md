@@ -64,6 +64,8 @@ This project follows the [GitHub "scripts to rule them all" pattern][scripts-to-
 * `script/build` &mdash; Builds the escript in the development directory
 * `script/install` &mdash; Builds the escript and installs it to `$MIX_ESCRIPTS`
 
+See the [CONTRIBUTING guide](CONTRIBUTING.md) for more information.
+
 ## License
 
 [MIT](LICENSE.md)

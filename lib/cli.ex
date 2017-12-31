@@ -1,6 +1,9 @@
 defmodule Clone.CLI do
   @moduledoc """
-  Command-line interface for the clone tool.
+  Handles the command-line interface for the program.
+
+  This module contains the entry point, parses the command-line arguments and options, and houses
+  the main control flow of the program.
   """
 
   alias Clone.Repo
@@ -8,12 +11,20 @@ defmodule Clone.CLI do
 
   require Logger
 
+  @doc """
+  The entry-point for the program.
+  """
+  @spec main([String.t]) :: no_return
   def main(args) do
     args
     |> parse_arguments
     |> run
   end
 
+  @doc """
+  Parses the command-line arguments and generates the `Clone.State` struct.
+  """
+  @spec parse_arguments([String.t]) :: State.t
   def parse_arguments(args) do
     args
     |> OptionParser.parse(
@@ -29,6 +40,10 @@ defmodule Clone.CLI do
     |> State.new
   end
 
+  @doc """
+  Executes the main control flow of the program.
+  """
+  @spec run(State.t) :: no_return
   def run(%State{} = state) do
     state
     |> set_verbosity
