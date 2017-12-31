@@ -29,7 +29,7 @@ defmodule Clone.Mixfile do
     ]
   end
 
-  def docs do
+  defp docs do
     [
       extras: [
         "README.md",

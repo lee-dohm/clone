@@ -67,18 +67,6 @@ defmodule Clone.CLI do
     state
   end
 
-  defp env(list) do
-    Enum.find_value(list, fn(item) ->
-      value = System.get_env(item)
-
-      cond do
-        is_nil(value) -> nil
-        String.length(value) == 0 -> nil
-        true -> value
-      end
-    end)
-  end
-
   defp execute_hub(%{location: location, repo_dir: repo_dir} = state) do
     log_state(state)
 
@@ -108,30 +96,26 @@ defmodule Clone.CLI do
   end
 
   defp repo_home do
-    repo_home = Path.expand(env(["REPO_HOME", "GITHUB_REPOS_HOME", "ATOM_REPOS_HOME"]))
-
-    Logger.debug(fn -> "Repo home = #{repo_home}" end)
-
-    repo_home
+    "REPO_HOME"
+    |> System.get_env
+    |> Path.expand
   end
 
-  defp set_exit_status({_, status}) do
-    exit({:shutdown, status})
-  end
-
-  defp set_verbosity(%{options: %{verbose: true}} = state) do
-    log_state(state)
-
-    Logger.configure_backend(:console, level: :info)
-
-    state
-  end
+  defp set_exit_status({_, status}), do: exit({:shutdown, status})
 
   defp set_verbosity(%{options: %{debug: true}} = state) do
     log_state(state)
 
     Logger.configure_backend(:console, level: :debug)
     System.put_env("HUB_VERBOSE", "1")
+
+    state
+  end
+
+  defp set_verbosity(%{options: %{verbose: true}} = state) do
+    log_state(state)
+
+    Logger.configure_backend(:console, level: :info)
 
     state
   end
