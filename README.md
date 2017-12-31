@@ -6,13 +6,13 @@ Most people have a directory where they store their software projects. If you're
 
 ```
 REPO_HOME
-+ atom
-  - atom
-  - tree-view
-+ electron
-  - electron
-+ lee-dohm
-  - tabs-to-spaces
+- atom
+  + atom
+  + tree-view
+- electron
+  + electron
+- lee-dohm
+  + tabs-to-spaces
 ```
 
 But even though the user or org name is built into the clone URL, neither Git nor the [hub tool](https://hub.github.com) make it easy to maintain such a directory structure. This tool makes it simple.
