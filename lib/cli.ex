@@ -4,27 +4,46 @@ defmodule Clone.CLI do
   """
 
   alias Clone.Repo
+  alias Clone.State
+
   require Logger
 
-  def main(args \\ []) do
-    {options, words, _} = OptionParser.parse(args, switches: [debug: :boolean, verbose: :boolean],
-                                                   aliases: [d: :debug, v: :verbose])
+  def main(args) do
+    args
+    |> parse_arguments
+    |> run
+  end
 
-    set_verbosity(options)
+  def parse_arguments(args) do
+    args
+    |> OptionParser.parse(
+         switches: [
+           debug: :boolean,
+           verbose: :boolean
+         ],
+         aliases: [
+           d: :debug,
+           v: :verbose
+         ]
+       )
+    |> State.new
+  end
 
-    location = get_location(words)
+  def run(%State{} = state) do
+    state
+    |> set_verbosity
+    |> parse_location
+    |> parse_repo_dir
+    |> ensure_parent_directory
+    |> execute_hub
+    |> set_exit_status
+  end
 
-    repo_dir =
-      location
-      |> Repo.parse_location()
-      |> get_repo_dir()
-
-    :ok =
-      repo_dir
-      |> Path.dirname()
-      |> ensure_directory()
-
-    execute_hub(["clone", location, repo_dir])
+  defmacrop log_state(state) do
+    quote do
+      Logger.debug(fn -> "Starting #{format_function(__ENV__.function)}" end)
+      Logger.debug(fn -> "State: #{inspect unquote(state)}" end)
+    end
   end
 
   defp ensure_directory(directory) do
@@ -35,6 +54,17 @@ defmodule Clone.CLI do
       {:error, :eexist} -> :ok
       error -> error
     end
+  end
+
+  defp ensure_parent_directory(%{repo_dir: repo_dir} = state) do
+    log_state(state)
+
+    :ok =
+      repo_dir
+      |> Path.dirname
+      |> ensure_directory
+
+    state
   end
 
   defp env(list) do
@@ -49,27 +79,32 @@ defmodule Clone.CLI do
     end)
   end
 
-  defp execute_hub(args) do
-    Logger.info(fn -> "Execute `hub #{Enum.join(args, " ")}`" end)
-    System.cmd("hub", args)
+  defp execute_hub(%{location: location, repo_dir: repo_dir} = state) do
+    log_state(state)
+
+    execute_hub(["clone", location, repo_dir])
   end
 
-  defp get_location(args) do
-    location = List.first(args)
-    Logger.debug(fn -> "location = #{location}" end)
+  defp execute_hub(list) when is_list(list) do
+    Logger.info(fn -> "Execute `hub #{Enum.join(list, " ")}`" end)
 
-    location
+    System.cmd("hub", list)
   end
 
-  defp get_repo_dir({owner, repo}) do
-    Logger.debug(fn -> "owner = #{owner}" end)
-    Logger.debug(fn -> "repo = #{repo}" end)
+  defp format_function({name, arity}), do: "#{name}/#{arity}"
 
-    repo_dir = Path.join([repo_home(), owner, repo])
+  defp parse_location(%{arguments: [head | _]} = state) do
+    log_state(state)
 
-    Logger.debug(fn -> "repo_dir = #{repo_dir}" end)
+    %State{state | location: head}
+  end
 
-    repo_dir
+  defp parse_repo_dir(%{location: location} = state) do
+    log_state(state)
+
+    {owner, repo} = Repo.parse_location(location)
+
+    %State{state | repo_dir: Path.join([repo_home(), owner, repo])}
   end
 
   defp repo_home do
@@ -80,12 +115,26 @@ defmodule Clone.CLI do
     repo_home
   end
 
-  defp set_verbosity(options) do
-    if Keyword.get(options, :verbose), do: Logger.configure_backend(:console, level: :info)
-
-    if Keyword.get(options, :debug) do
-      Logger.configure_backend(:console, level: :debug)
-      System.put_env("HUB_VERBOSE", "1")
-    end
+  defp set_exit_status({_, status}) do
+    exit({:shutdown, status})
   end
+
+  defp set_verbosity(%{options: %{verbose: true}} = state) do
+    log_state(state)
+
+    Logger.configure_backend(:console, level: :info)
+
+    state
+  end
+
+  defp set_verbosity(%{options: %{debug: true}} = state) do
+    log_state(state)
+
+    Logger.configure_backend(:console, level: :debug)
+    System.put_env("HUB_VERBOSE", "1")
+
+    state
+  end
+
+  defp set_verbosity(state), do: state
 end
