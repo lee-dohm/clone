@@ -4,6 +4,9 @@ defmodule Clone.Mixfile do
   def project do
     [
       app: :clone,
+      name: "Clone for GitHub",
+      homepage_url: "https://github.com/lee-dohm/clone",
+      source_url: "https://github.com/lee-dohm/clone",
       version: "0.3.0",
       elixir: "~> 1.5",
       start_permanent: Mix.env == :prod,
