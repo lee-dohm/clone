@@ -17,22 +17,10 @@ REPO_HOME
 
 But even though the user or org name is built into the clone URL, neither Git nor the [hub tool](https://hub.github.com) make it easy to maintain such a directory structure. This tool makes it simple.
 
-## Use
+## Prerequisites
 
-Execute the script like this:
-
-```shell
-$ clone lee-dohm/clone
-```
-
-And it will:
-
-1. Create `$REPO_HOME/lee-dohm`, if necessary
-1. Execute `hub clone lee-dohm/clone "$REPO_HOME/lee-dohm/clone"`
-
-The tool will also accept Git `https` or `git` URLs rather than just GitHub `owner/repo` combinations.
-
-If the tool cannot detect a reasonable value for `REPO_HOME`, it will log an error and exit.
+* [Elixir][elixir-lang] v1.5 or higher
+* [hub][hub]
 
 ## Installation
 
@@ -47,9 +35,27 @@ mix escript.install github lee-dohm/clone v0.3.0
 
 If you want the latest development version, leave off the version tag.
 
+## Use
+
+Execute the script like this:
+
+```shell
+clone lee-dohm/clone
+```
+
+It will:
+
+1. Create `$REPO_HOME/lee-dohm`, if necessary
+1. Execute `hub clone lee-dohm/clone "$REPO_HOME/lee-dohm/clone"`
+
+The tool will also accept Git `https` or `git` URLs rather than just GitHub `owner/repo` combinations.
+
+If the tool cannot detect a reasonable value for `REPO_HOME`, it will log an error and exit.
+
+
 ## Development
 
-This project follows the [GitHub "scripts to rule them all" pattern](http://githubengineering.com/scripts-to-rule-them-all/). The contents of the `script` directory are scripts that cover all common tasks:
+This project follows the [GitHub "scripts to rule them all" pattern][scripts-to-rule-them-all]. The contents of the `script` directory are scripts that cover all common tasks:
 
 * `script/bootstrap` &mdash; Installs all prerequisites for a development machine
 * `script/test` &mdash; Runs automated tests
@@ -63,3 +69,5 @@ This project follows the [GitHub "scripts to rule them all" pattern](http://gith
 [MIT](LICENSE.md)
 
 [elixir-lang]: https://elixir-lang.org/
+[hub]: https://hub.github.com/
+[scripts-to-rule-them-all]: http://githubengineering.com/scripts-to-rule-them-all/

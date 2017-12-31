@@ -28,8 +28,19 @@ defmodule Clone.Mixfile do
 
   def docs do
     [
-      extras: ["README.md", "LICENSE.md"],
-      main: "Clone"
+      extras: [
+        "README.md",
+        "CONTRIBUTING.md",
+        "CODE_OF_CONDUCT.md": [
+          filename: "code_of_conduct",
+          title: "Code of Conduct"
+        ],
+        "LICENSE.md": [
+          filename: "license",
+          title: "License"
+        ]
+      ],
+      main: "readme"
     ]
   end
 
