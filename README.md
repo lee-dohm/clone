@@ -30,7 +30,7 @@ If you already have [Elixir][elixir-lang] installed, the current released versio
 The version number in this block should be automatically updated by script/bump.
 -->
 ```shell
-mix escript.install github lee-dohm/clone v0.3.0
+mix escript.install github lee-dohm/clone v1.0.0
 ```
 
 If you want the latest development version, leave off the version tag.

@@ -7,7 +7,7 @@ defmodule Clone.Mixfile do
       name: "Clone for GitHub",
       homepage_url: "https://github.com/lee-dohm/clone",
       source_url: "https://github.com/lee-dohm/clone",
-      version: "0.3.0",
+      version: "1.0.0",
       elixir: "~> 1.5",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
