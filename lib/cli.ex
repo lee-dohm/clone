@@ -14,7 +14,7 @@ defmodule Clone.CLI do
   @doc """
   The entry-point for the program.
   """
-  @spec main([String.t]) :: no_return
+  @spec main([String.t()]) :: no_return
   def main(args) do
     args
     |> parse_arguments
@@ -24,26 +24,26 @@ defmodule Clone.CLI do
   @doc """
   Parses the command-line arguments and generates the `Clone.State` struct.
   """
-  @spec parse_arguments([String.t]) :: State.t
+  @spec parse_arguments([String.t()]) :: State.t()
   def parse_arguments(args) do
     args
     |> OptionParser.parse(
-         switches: [
-           debug: :boolean,
-           verbose: :boolean
-         ],
-         aliases: [
-           d: :debug,
-           v: :verbose
-         ]
-       )
-    |> State.new
+      switches: [
+        debug: :boolean,
+        verbose: :boolean
+      ],
+      aliases: [
+        d: :debug,
+        v: :verbose
+      ]
+    )
+    |> State.new()
   end
 
   @doc """
   Executes the main control flow of the program.
   """
-  @spec run(State.t) :: no_return
+  @spec run(State.t()) :: no_return
   def run(%State{} = state) do
     state
     |> set_verbosity
@@ -57,7 +57,7 @@ defmodule Clone.CLI do
   defmacrop log_state(state) do
     quote do
       Logger.debug(fn -> "Starting #{format_function(__ENV__.function)}" end)
-      Logger.debug(fn -> "State: #{inspect unquote(state)}" end)
+      Logger.debug(fn -> "State: #{inspect(unquote(state))}" end)
     end
   end
 
@@ -76,7 +76,7 @@ defmodule Clone.CLI do
 
     :ok =
       repo_dir
-      |> Path.dirname
+      |> Path.dirname()
       |> ensure_directory
 
     state
@@ -112,8 +112,8 @@ defmodule Clone.CLI do
 
   defp repo_home do
     "REPO_HOME"
-    |> System.get_env
-    |> Path.expand
+    |> System.get_env()
+    |> Path.expand()
   end
 
   defp set_exit_status({_, status}), do: exit({:shutdown, status})
