@@ -16,4 +16,8 @@ script/bootstrap
 #   mix test
 # fi
 
+echo "==> Linting files…"
+mix format --check-formatted
+
+echo "==> Running tests…"
 mix test

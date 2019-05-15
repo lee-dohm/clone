@@ -14,13 +14,8 @@ export MIX_ENV="test"
 
 script/bootstrap
 
-if [ -n "$CI" ]; then
-  echo "==> Linting files…"
-  mix format --check-formatted
-else
-  echo "==> Formatting files…"
-  mix format
-fi
+echo "==> Formatting files…"
+mix format
 
 echo "==> Running tests…"
 
