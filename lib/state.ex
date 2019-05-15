@@ -14,14 +14,14 @@ defmodule Clone.State do
   defstruct [:arguments, :invalid_options, :location, :options, :repo_dir]
 
   @type t :: %__MODULE__{
-    arguments: [String.t],
-    invalid_options: Keyword.t,
-    location: String.t | nil,
-    options: %{required(atom) => any},
-    repo_dir: String.t | nil
-  }
+          arguments: [String.t()],
+          invalid_options: Keyword.t(),
+          location: String.t() | nil,
+          options: %{required(atom) => any},
+          repo_dir: String.t() | nil
+        }
 
-  @type parsed_options :: {OptionParser.parsed, OptionParser.argv, OptionParser.errors}
+  @type parsed_options :: {OptionParser.parsed(), OptionParser.argv(), OptionParser.errors()}
 
   @doc """
   Creates a `Clone.State` struct from an `OptionParser.parse/2` tuple.

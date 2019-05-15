@@ -6,7 +6,7 @@ defmodule Clone.Repo do
   @doc """
   Parses the GitHub repository location into an `{owner, repo}` tuple.
   """
-  @spec parse_location(String.t) :: {String.t, String.t} | nil
+  @spec parse_location(String.t()) :: {String.t(), String.t()} | nil
   def parse_location(location) do
     matches = parse_ssh_repo(location) || parse_https_repo(location) || parse_nwo_repo(location)
 
@@ -17,7 +17,8 @@ defmodule Clone.Repo do
     end
   end
 
-  defp parse_https_repo(name), do: Regex.run(~r{^https://github.com/([^/]+)/([^. \t]+)(\.git)?$}, name)
+  defp parse_https_repo(name),
+    do: Regex.run(~r{^https://github.com/([^/]+)/([^. \t]+)(\.git)?$}, name)
 
   defp parse_nwo_repo(name), do: Regex.run(~r{^([^/]+)/(\S+)$}, name)
 
