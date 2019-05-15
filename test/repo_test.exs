@@ -1,6 +1,8 @@
 defmodule Clone.RepoTest do
   use ExUnit.Case, async: true
 
+  doctest Clone.Repo
+
   alias Clone.Repo
 
   describe "parse_location/1" do

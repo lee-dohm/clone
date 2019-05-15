@@ -5,6 +5,36 @@ defmodule Clone.Repo do
 
   @doc """
   Parses the GitHub repository location into an `{owner, repo}` tuple.
+
+  ## Examples
+
+  Parse an HTTPS clone URL:
+
+  ```
+  iex> Clone.Repo.parse_location("https://github.com/lee-dohm/clone.git")
+  {"lee-dohm", "clone"}
+  ```
+
+  Parse a GitHub repository URL:
+
+  ```
+  iex> Clone.Repo.parse_location("https://github.com/lee-dohm/clone")
+  {"lee-dohm", "clone"}
+  ```
+
+  Parse a "name with owner" string:
+
+  ```
+  iex> Clone.Repo.parse_location("lee-dohm/clone")
+  {"lee-dohm", "clone"}
+  ```
+
+  Parse an SSH clone URL:
+
+  ```
+  iex> Clone.Repo.parse_location("git@github.com:lee-dohm/clone.git")
+  {"lee-dohm", "clone"}
+  ```
   """
   @spec parse_location(String.t()) :: {String.t(), String.t()} | nil
   def parse_location(location) do
