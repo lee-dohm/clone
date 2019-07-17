@@ -19,7 +19,7 @@ But even though the user or org name is built into the clone URL, neither Git no
 
 ## Prerequisites
 
-* [Elixir][elixir-lang] v1.5 or higher
+* [Elixir][elixir-lang] v1.9 or higher
 * [hub][hub]
 
 ## Installation
