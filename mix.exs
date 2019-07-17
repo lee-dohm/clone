@@ -8,7 +8,7 @@ defmodule Clone.Mixfile do
       homepage_url: "https://github.com/lee-dohm/clone",
       source_url: "https://github.com/lee-dohm/clone",
       version: "1.0.0",
-      elixir: "~> 1.5",
+      elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       docs: docs(),
