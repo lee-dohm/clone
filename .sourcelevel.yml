@@ -9,4 +9,3 @@ engines:
 exclude_paths:
 - config
 - script
-- spec
