@@ -1,1 +1,1 @@
-brew "elixir"
+brew "asdf"

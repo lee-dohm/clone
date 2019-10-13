@@ -16,6 +16,11 @@ if [ -f "Brewfile" ] && [ "$(uname -s)" = "Darwin" ]; then
   }
 fi
 
+if ! command -v elixir >/dev/null 2>&1; then
+  echo "==> Installing erlang and elixir…"
+  asdf install
+fi
+
 if [ -f "mix.exs" ]; then
   echo "==> Installing mix dependencies…"
   mix deps.get
