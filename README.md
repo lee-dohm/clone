@@ -1,5 +1,7 @@
 # Clone Tool for GitHub
 
+> **Note:** I'm no longer using this tool and using [this fish function](https://github.com/lee-dohm/dotfiles/blob/primary/config/fish/functions/clone.fish) in its place. Because this is no longer maintained, I've archived the repository.
+
 An Elixir escript tool to clone GitHub repositories and store them in the structure to which I've become accustomed.
 
 Most people have a directory where they store their software projects. If you're like me and dabble in a lot of different things, that directory can get pretty busy pretty quickly. Fortunately, the way that GitHub is designed, there's an easy way to collect related projects together by organizing them in directories named after the user or organization they belong to. For example, since I work on [Atom](https://atom.io), [Electron](https://electron.atom.io), and my own personal projects, I might have:
